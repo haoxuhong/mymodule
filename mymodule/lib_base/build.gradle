@@ -1,0 +1,64 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion rootProject.compileSdkVersion
+    buildToolsVersion rootProject.buildToolsVersion
+
+    // 使用 JDK 1.8
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    defaultConfig {
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        // 混淆配置
+        consumerProguardFiles 'proguard-base.pro'
+    }
+
+    dataBinding {
+        enabled true
+    }
+
+}
+
+dependencies {
+
+    api "androidx.appcompat:appcompat:$rootProject.androidx_version"
+    api "com.google.android.material:material:$rootProject.material_version"
+    api "androidx.cardview:cardview:$rootProject.cardview_version"
+    api "androidx.recyclerview:recyclerview:$rootProject.recyclerview_version"
+
+    api project(':lib_dialog')
+    api project(':lib_network') //网络请求框架
+    
+    api "com.hjq:toast:$rootProject.toast_version"
+
+    //加载反馈页管理框架
+    api "com.kingja.loadsir:loadsir:$rootProject.loadsir_version"
+
+    //添加动画效果
+    implementation "com.airbnb.android:lottie:$rootProject.lottie_version"
+
+    //SmartRefreshLayout上拉加载下拉刷新
+    api "com.scwang.smart:refresh-layout-kernel:$rootProject.refreshlayout_version"      //核心必须依赖
+    api "com.scwang.smart:refresh-header-classics:$rootProject.refreshlayout_version"   //经典刷新头
+    api "com.scwang.smart:refresh-header-material:$rootProject.refreshlayout_version"   //谷歌刷新头
+    api "com.scwang.smart:refresh-footer-classics:$rootProject.refreshlayout_version"    //经典加载
+
+
+    // 状态栏沉浸：
+    api "com.gyf.immersionbar:immersionbar:$rootProject.immersionbar_version"
+    // fragment快速实现（可选）
+    api "com.gyf.immersionbar:immersionbar-components:$rootProject.immersionbar_version"
+
+    //BaseRecyclerViewAdapterHelper此资源库自带混淆规则，并且会自动导入，正常情况下无需手动导入
+    api "com.github.CymChad:BaseRecyclerViewAdapterHelper:$rootProject.rvadapterhelper_version"
+
+    // 权限请求框架
+    //    implementation 'com.hjq:xxpermissions:6.0'
+    api "com.permissionx.guolindev:permissionx:$rootProject.permissionx_version"
+
+    //AndroidAutoSize屏幕适配
+    api 'me.jessyan:autosize:1.1.2'
+}

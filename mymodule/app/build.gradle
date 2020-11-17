@@ -1,0 +1,89 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion rootProject.compileSdkVersion
+    buildToolsVersion rootProject.buildToolsVersion
+
+    // 使用 JDK 1.8
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    defaultConfig {
+        applicationId "com.uweic.mymodule"
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        versionCode 1
+        versionName "1.0.0"
+        // 混淆配置
+        proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        // 仅支持 中文
+        resConfigs "zh"
+        ndk {
+            // armeabi：已经淘汰（0%）
+            // armeabi-v7a：曾经主流的架构平台（20%）
+            // arm64-v8a：目前主流架构平台（80%）
+            abiFilters "armeabi-v7a", "arm64-v8a"
+        }
+
+    }
+
+    signingConfigs {
+        release {
+            storeFile file(StoreFile)
+            storePassword StorePassword
+            keyAlias KeyAlias
+            keyPassword KeyPassword
+        }
+
+    }
+    buildTypes {
+        release {
+            // 移除无用的资源文件
+            shrinkResources true
+            // ZipAlign 优化
+            zipAlignEnabled true
+            // 设置混淆
+            minifyEnabled true
+            // 正式环境签名
+            signingConfig signingConfigs.release
+        }
+        debug {
+            // 移除无用的资源文件
+            shrinkResources false
+            // ZipAlign 优化
+            zipAlignEnabled false
+            // 设置混淆
+            minifyEnabled false
+            // 开发环境签名
+//            signingConfig signingConfigs.release
+        }
+    }
+
+    // 执行配置
+    applicationVariants.all { variant ->
+
+        // Apk 输出配置
+        variant.outputs.all { output ->
+            def appName = "模板"
+            if (variant.buildType.name == 'debug') {
+                outputFileName = appName + '_v' + versionName + '_' + variant.buildType.name + '.apk'
+            } else {
+                outputFileName = appName + '_v' + versionName + '_' + new Date().format("yyyyMMdd") + '_' + variant.buildType.name + '.apk'
+            }
+        }
+
+    }
+    dataBinding {
+        enabled true
+    }
+}
+
+dependencies {
+
+    implementation project(':lib_webview')
+
+    annotationProcessor rootProject.googleAutoServiceDependency
+    implementation rootProject.googleAutoServiceDependency
+}

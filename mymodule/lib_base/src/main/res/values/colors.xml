@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--    Material Design亮色主题-->
+    <color name="color_common_light_status_bar">#E0E0E0</color>//状态栏
+    <color name="color_common_light_application_column">#F5F5F5</color>//应用栏
+    <color name="color_common_light_background">#FAFAFA</color>//页面背景
+
+    <color name="color_common_header">#2686FF</color>
+    <color name="color_white">#ffffff</color>
+    <color name="color_red">#f00</color>
+    <color name="color_black">#000</color>
+    <color name="color_gray_666">#666666</color>
+    <color name="color_gray_68">#686868</color>
+    <color name="color_gray_999">#999999</color>
+    <color name="color_gray_ccc">#cccccc</color>
+    <color name="color_gray_bg">#F6F6F6</color>
+    <color name="color_gray_line_bg">#E6E6E6</color>
+    <color name="color_standard_black">#333333</color>
+
+    <!--红色字体颜色-->
+    <color name="color_red_font">#fc6778</color>
+    <!-- 分割线的颜色 -->
+    <color name="color_split_line">#C1C1C1</color>
+    <!-- 按钮按压时的颜色 -->
+    <color name="color_button_pressed">#1976D2</color>
+    <!-- 按压时背景的颜色 -->
+    <color name="color_background_pressed">#0c000000</color>
+    <!-- 按钮禁用时的颜色 -->
+    <color name="color_button_disable">#BBBBBB</color>
+
+</resources>

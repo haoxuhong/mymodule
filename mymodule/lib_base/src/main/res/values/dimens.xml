@@ -1,0 +1,56 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <!-- 默认按钮的圆角大小 -->
+    <dimen name="button_round_size">5dp</dimen>
+
+    <dimen name="text_size_7">7sp</dimen>
+    <dimen name="text_size_9">9sp</dimen>
+    <dimen name="text_size_10">10sp</dimen>
+    <dimen name="text_size_11">11sp</dimen>
+    <dimen name="text_size_12">12sp</dimen>
+    <dimen name="text_size_13">13sp</dimen>
+    <dimen name="text_size_14">14sp</dimen>
+    <dimen name="text_size_15">15sp</dimen>
+    <dimen name="text_size_16">16sp</dimen>
+    <dimen name="text_size_17">17sp</dimen>
+    <dimen name="text_size_18">18sp</dimen>
+    <dimen name="text_size_20">20sp</dimen>
+
+    <dimen name="margin_size_2">2dp</dimen>
+    <dimen name="margin_size_4">4dp</dimen>
+    <dimen name="margin_size_5">5dp</dimen>
+    <dimen name="margin_size_6">6dp</dimen>
+    <dimen name="margin_size_8">8dp</dimen>
+    <dimen name="margin_size_10">10dp</dimen>
+    <dimen name="margin_size_12">12dp</dimen>
+    <dimen name="margin_size_14">14dp</dimen>
+    <dimen name="margin_size_15">15dp</dimen>
+    <dimen name="margin_size_16">16dp</dimen>
+    <dimen name="margin_size_20">20dp</dimen>
+
+    <!--    状态栏：56dp-->
+    <dimen name="common_status_size">24dp</dimen>
+    <!--    标题栏：56dp-->
+    <dimen name="common_title_size">56dp</dimen>
+    <!--    副标题：48dp-->
+    <dimen name="common_title_size2">46dp</dimen>
+    <!--    列表项：72dp-->
+    <dimen name="common_list_size">72dp</dimen>
+    <!--    屏幕边缘的左右边距-->
+    <dimen name="common_margin_size">15dp</dimen>
+    <!--    内容区域之间的间距：8dp-->
+    <dimen name="common_content_margin_size">8dp</dimen>
+
+    <dimen name="common_card_corner_radius">6dp</dimen>
+    <dimen name="common_card_elevation">3dp</dimen>
+
+    <!-- 默认分割线大小 -->
+    <dimen name="line_size">0.5dp</dimen>
+    <dimen name="time_selector_dialog_size">12dp</dimen>
+
+    <!--字体大小-->
+    <dimen name="title_text_font_size">19sp</dimen>
+    <dimen name="title_right_text_font_size">15sp</dimen>
+    <dimen name="title_text_font_size2">17sp</dimen>
+
+</resources>

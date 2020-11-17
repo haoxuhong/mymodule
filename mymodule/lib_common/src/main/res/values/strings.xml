@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 提示 -->
+    <string name="hint_layout_no_data">亲，暂无数据</string>
+    <string name="hint_layout_error_request">亲，请求出错了</string>
+    <string name="hint_layout_error_network">亲，没有网络了</string>
+
+
+    <string name="common_internet_error">网络异常,请重新连接网络</string>
+</resources>

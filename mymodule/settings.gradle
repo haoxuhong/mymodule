@@ -1,0 +1,6 @@
+rootProject.name='mymodule'
+include ':app', ':lib_network'
+include ':lib_base'
+include ':lib_common'
+include ':lib_dialog'
+include ':lib_webview'

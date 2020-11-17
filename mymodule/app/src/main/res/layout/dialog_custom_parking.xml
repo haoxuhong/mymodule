@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/WrapWrap.StandardBlack"
+            android:text="操作确认"
+            android:textSize="@dimen/text_size_15"
+            android:layout_marginTop="@dimen/common_margin_size"
+            android:layout_marginLeft="@dimen/common_margin_size"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/dialog_custom_parking_close_iv"
+            style="@style/WrapWrap"
+            android:layout_gravity="end|center_vertical"
+          android:layout_marginTop="@dimen/common_margin_size"
+            android:layout_marginRight="@dimen/common_margin_size"
+            android:layout_alignParentRight="true"
+            app:srcCompat="@drawable/close_icon" />
+
+    </RelativeLayout>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="40dp"
+    android:gravity="center_horizontal">
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/dialog_custom_parking_tv1"
+        style="@style/WrapWrap.StandardBlack"
+        android:paddingTop="@dimen/margin_size_10"
+        android:text="当前车位锁处于"
+        android:textSize="@dimen/text_size_12"/>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/dialog_custom_parking_tv2"
+        style="@style/WrapWrap"
+        android:text=" 落锁 "
+        android:textColor="#0f0"
+        android:layout_alignBottom="@+id/dialog_custom_parking_tv1"
+        android:layout_toRightOf="@+id/dialog_custom_parking_tv1"
+        android:textSize="@dimen/text_size_20"/>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/dialog_custom_parking_tv3"
+        style="@style/WrapWrap.StandardBlack"
+        android:text="状态，请确认现场环境,"
+        android:layout_alignBottom="@+id/dialog_custom_parking_tv1"
+        android:layout_toRightOf="@+id/dialog_custom_parking_tv2"
+        android:textSize="@dimen/text_size_12"/>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/dialog_custom_parking_tv4"
+        style="@style/WrapWrap.StandardBlack"
+        android:text="是否置为"
+        android:layout_marginTop="@dimen/margin_size_10"
+       android:layout_below="@+id/dialog_custom_parking_tv1"
+        android:textSize="@dimen/text_size_12"/>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/dialog_custom_parking_tv5"
+        style="@style/WrapWrap"
+        android:text=" 上锁 "
+        android:textColor="#f00"
+        android:layout_alignBottom="@+id/dialog_custom_parking_tv4"
+        android:layout_toRightOf="@+id/dialog_custom_parking_tv4"
+        android:textSize="@dimen/text_size_20"/>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/dialog_custom_parking_tv6"
+        style="@style/WrapWrap.StandardBlack"
+        android:text="状态？"
+        android:layout_alignBottom="@+id/dialog_custom_parking_tv5"
+        android:layout_toRightOf="@+id/dialog_custom_parking_tv5"
+        android:textSize="@dimen/text_size_12"/>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/dialog_custom_parking_tv7"
+        style="@style/WrapWrap.StandardBlack"
+        android:text="操作结果将于10s内更新"
+        android:layout_marginTop="@dimen/margin_size_16"
+        android:layout_below="@+id/dialog_custom_parking_tv4"
+        android:textSize="@dimen/text_size_12"/>
+</RelativeLayout>
+
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/dialog_custom_parking_confirm_btn"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="40dp"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_15"
+        android:background="@drawable/button_selector"
+        android:text="确认"/>
+</LinearLayout>

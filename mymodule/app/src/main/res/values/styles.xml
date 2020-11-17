@@ -1,0 +1,37 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@android:color/white</item>
+        <!--Button、TextView的文字颜色-->
+        <item name="android:textColor">#333333</item>
+        <!-- Button、TextView的提示文字颜色 -->
+        <item name="android:textColorHint">#999999</item>
+        <!-- 解决 Android 5.1 及以上版本 Button 英文字符串自动变大写的问题 -->
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <!-- 默认圆角按钮样式 -->
+    <style name="ButtonStyle" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:paddingStart">15dp</item>
+        <item name="android:paddingEnd">15dp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/white90</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/button_selector</item>
+        <item name="android:foreground">@null</item>
+    </style>
+
+    <!-- 不带圆角按钮样式 -->
+    <style name="RectButtonStyle" parent="ButtonStyle">
+        <item name="android:background">@drawable/button_rect_selector</item>
+    </style>
+
+</resources>
