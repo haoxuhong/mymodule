@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.open_test_fragment_activity).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //git的使用测试
 //                startActivity(new Intent(MainActivity.this,TestFragmentActivity.class));
             }
         });
