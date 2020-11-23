@@ -4,8 +4,8 @@ import android.view.View;
 
 import com.uweic.lib_base.autoservice.MyServiceLoader;
 import com.uweic.lib_common.autoservice.IWebViewService;
-import com.uweic.lib_common.mvp.MvpActivity;
 import com.uweic.mymodule.R;
+import com.uweic.mymodule.common.mvp.MvpActivity;
 import com.uweic.mymodule.databinding.ActivityTestWebBinding;
 
 /**

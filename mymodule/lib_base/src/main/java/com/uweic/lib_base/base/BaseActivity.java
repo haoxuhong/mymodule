@@ -4,10 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.os.Parcelable;
-import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -202,24 +199,28 @@ public abstract class BaseActivity<V extends ViewDataBinding> extends AppCompatA
 
     /////////////////界面状态管理/////////////
 
+
     /**
      * 显示加载中
      */
-    public void showLoading() {
+    public void showLoading(View view) {
+        content = view;
         initLoadSir(content, this.getString(R.string.common_loading));
         if (mBaseLoadService != null) {
             mBaseLoadService.showCallback(LoadingCallback.class);
         }
     }
 
-    public void showLoading(@StringRes int id) {
+    public void showLoading(View view, @StringRes int id) {
+        content = view;
         initLoadSir(content, this.getString(id));
         if (mBaseLoadService != null) {
             mBaseLoadService.showCallback(LoadingCallback.class);
         }
     }
 
-    public void showLoading(String hintStr) {
+    public void showLoading(View view, String hintStr) {
+        content = view;
         initLoadSir(content, hintStr);
         if (mBaseLoadService != null) {
             mBaseLoadService.showCallback(LoadingCallback.class);

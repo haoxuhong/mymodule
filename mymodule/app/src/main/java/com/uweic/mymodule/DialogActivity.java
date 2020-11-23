@@ -6,7 +6,6 @@ import android.view.View;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageView;
 
-import com.uweic.lib_common.mvp.MvpActivity;
 import com.uweic.lib_dialog.AddressDialog;
 import com.uweic.lib_dialog.DateDialog;
 import com.uweic.lib_dialog.HintDialog;
@@ -19,6 +18,7 @@ import com.uweic.lib_dialog.TimeDialog;
 import com.uweic.lib_dialog.UpdateDialog;
 import com.uweic.lib_dialog.WaitDialog;
 import com.uweic.lib_dialog.base.BaseDialog;
+import com.uweic.mymodule.common.mvp.MvpActivity;
 import com.uweic.mymodule.databinding.ActivityDialogBinding;
 import com.uweic.mymodule.utils.CustomParkingDialog;
 

@@ -21,10 +21,10 @@ import com.uweic.lib_base.loadsir.ErrorCallback;
 import com.uweic.lib_base.loadsir.TimeoutCallback;
 import com.uweic.lib_base.utils.MyLogManager;
 import com.uweic.lib_common.constant.Constant;
+import com.uweic.mymodule.common.network.CustomTokenInterceptor;
+import com.uweic.mymodule.common.network.HandleErrorInterceptor;
 import com.zhouyou.http.EasyHttp;
 import com.zhouyou.http.cache.converter.GsonDiskConverter;
-import com.uweic.lib_common.network.CustomTokenInterceptor;
-import com.uweic.lib_common.network.HandleErrorInterceptor;
 
 /**
  * Created by haoxuhong on 2020/8/21

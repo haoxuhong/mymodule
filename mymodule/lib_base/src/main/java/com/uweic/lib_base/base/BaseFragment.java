@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
@@ -37,14 +36,15 @@ import java.io.Serializable;
  * @description: Fragment 懒加载基类
  */
 
-public abstract class BaseFragment<A extends BaseActivity,V extends ViewDataBinding> extends Fragment {
+public abstract class BaseFragment<A extends BaseActivity, V extends ViewDataBinding> extends Fragment {
     public String mTag = this.getClass().getSimpleName();
     protected LoadService mBaseLoadService;
 
     private A mActivity;//Activity对象
 
-//    private View mRootView;//根布局
+    //    private View mRootView;//根布局
     protected V mBinding;
+    protected View contentView;
 
     private boolean isLazyLoad;//是否进行过懒加载
 
@@ -52,22 +52,13 @@ public abstract class BaseFragment<A extends BaseActivity,V extends ViewDataBind
 
     private boolean isReplaceFragment;//是否是 replace Fragment 的形式
 
+
     protected abstract int onCreateFragmentViewId();//引入布局
 
     protected abstract void initView();//初始化控件
 
-    protected abstract void onReload(View v);//重新加载
-
-    /**
-     * 根据资源 id 获取一个 View 对象
-     */
-    protected <V extends View> V findViewById(@IdRes int id) {
-        return mBinding.getRoot().findViewById(id);
-    }
-
-    protected <V extends View> V findActivityViewById(@IdRes int id) {
-        return mActivity.findViewById(id);
-    }
+    protected void onReload(View v) {
+    }//重新加载
 
     @Override
     public View getView() {
@@ -321,22 +312,25 @@ public abstract class BaseFragment<A extends BaseActivity,V extends ViewDataBind
     /**
      * 显示加载中
      */
-    public void showLoading() {
-        initLoadSir(mBinding.getRoot(), this.getString(R.string.common_loading));
+    public void showLoading(View view) {
+        contentView = view;
+        initLoadSir(view, this.getString(R.string.common_loading));
         if (mBaseLoadService != null) {
             mBaseLoadService.showCallback(LoadingCallback.class);
         }
     }
 
-    public void showLoading(@StringRes int id) {
-        initLoadSir(mBinding.getRoot(), this.getString(id));
+    public void showLoading(View view, @StringRes int id) {
+        contentView = view;
+        initLoadSir(view, this.getString(id));
         if (mBaseLoadService != null) {
             mBaseLoadService.showCallback(LoadingCallback.class);
         }
     }
 
-    public void showLoading(String hintStr) {
-        initLoadSir(mBinding.getRoot(), hintStr);
+    public void showLoading(View view, String hintStr) {
+        contentView = view;
+        initLoadSir(view, hintStr);
         if (mBaseLoadService != null) {
             mBaseLoadService.showCallback(LoadingCallback.class);
         }
@@ -367,24 +361,13 @@ public abstract class BaseFragment<A extends BaseActivity,V extends ViewDataBind
         if (mBaseLoadService != null) {
             if (isNetworkAvailable) {
 
-                mBaseLoadService.showCallback(TimeoutCallback.class);
-            } else {
                 mBaseLoadService.showCallback(ErrorCallback.class);
+            } else {
+                mBaseLoadService.showCallback(TimeoutCallback.class);
 
             }
         }
     }
-
-    /**
-     * 显示自定义提示
-     */
- /*   public void showLayout(@DrawableRes int drawableId, @StringRes int stringId) {
-        mStatusManager.showLayout(getView(), drawableId, stringId);
-    }
-
-    public void showLayout(Drawable drawable, CharSequence hint) {
-        mStatusManager.showLayout(getView(), drawable, hint);
-    }*/
 
 
 }
