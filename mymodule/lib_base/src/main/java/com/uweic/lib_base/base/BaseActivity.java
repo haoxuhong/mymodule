@@ -124,6 +124,7 @@ public abstract class BaseActivity<V extends ViewDataBinding> extends AppCompatA
     private void initLoadSir(View content, String title) {
         if (content != null) {
             if (mBaseLoadService != null) {
+                mBaseLoadService.showSuccess();
                 mBaseLoadService = null;
             }
             LoadingCallback.Builder loadingBuilder = new LoadingCallback.Builder();

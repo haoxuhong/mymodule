@@ -294,6 +294,7 @@ public abstract class BaseFragment<A extends BaseActivity, V extends ViewDataBin
     private void initLoadSir(View content, String title) {
         if (content != null) {
             if (mBaseLoadService != null) {
+                mBaseLoadService.showSuccess();
                 mBaseLoadService = null;
             }
             LoadingCallback.Builder loadingBuilder = new LoadingCallback.Builder();
