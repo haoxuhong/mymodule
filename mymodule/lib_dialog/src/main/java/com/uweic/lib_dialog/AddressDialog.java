@@ -44,7 +44,7 @@ public final class AddressDialog {
             extends BaseDialog.Builder<Builder>
             implements TabLayout.OnTabSelectedListener,
             Runnable, RecyclerViewAdapter.OnSelectListener,
-            BaseDialog.OnShowListener, BaseDialog.OnDismissListener{
+            BaseDialog.OnShowListener, BaseDialog.OnDismissListener {
         private final TextView mTitleView;
         private final ImageView mCloseView;
         private final TabLayout mTabLayout;
@@ -56,8 +56,11 @@ public final class AddressDialog {
         private OnListener mListener;
 
         private String mProvince = null;
+        private String mProvinceCode = null;
         private String mCity = null;
+        private String mCityCode = null;
         private String mArea = null;
+        private String mAreaCode = null;
 
         private boolean mIgnoreArea;
 
@@ -114,6 +117,7 @@ public final class AddressDialog {
         public Builder setTitle(@StringRes int id) {
             return setTitle(getString(id));
         }
+
         public Builder setTitle(CharSequence text) {
             mTitleView.setText(text);
             return this;
@@ -190,6 +194,7 @@ public final class AddressDialog {
                 case 0:
                     // 记录当前选择的省份
                     mProvince = mAdapter.getItem(recyclerViewPosition).get(clickItemPosition).getName();
+                    mProvinceCode = mAdapter.getItem(recyclerViewPosition).get(clickItemPosition).getCode();
                     mTabLayout.getTabAt(mTabLayout.getSelectedTabPosition()).setText(mProvince);
 
                     mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.address_hint)), true);
@@ -204,12 +209,14 @@ public final class AddressDialog {
                 case 1:
                     // 记录当前选择的城市
                     mCity = mAdapter.getItem(recyclerViewPosition).get(clickItemPosition).getName();
+                    mCityCode = mAdapter.getItem(recyclerViewPosition).get(clickItemPosition).getCode();
                     mTabLayout.getTabAt(mTabLayout.getSelectedTabPosition()).setText(mCity);
 
                     if (mIgnoreArea) {
 
                         if (mListener != null) {
                             mListener.onSelected(getDialog(), mProvince, mCity, mArea);
+                            mListener.onSelectedCode(getDialog(), mProvince, mProvinceCode, mCity, mCityCode, mArea, mAreaCode);
                         }
 
                         // 延迟关闭
@@ -225,10 +232,12 @@ public final class AddressDialog {
                 case 2:
                     // 记录当前选择的区域
                     mArea = mAdapter.getItem(recyclerViewPosition).get(clickItemPosition).getName();
+                    mAreaCode = mAdapter.getItem(recyclerViewPosition).get(clickItemPosition).getCode();
                     mTabLayout.getTabAt(mTabLayout.getSelectedTabPosition()).setText(mArea);
 
                     if (mListener != null) {
                         mListener.onSelected(getDialog(), mProvince, mCity, mArea);
+                        mListener.onSelectedCode(getDialog(), mProvince, mProvinceCode, mCity, mCityCode, mArea, mAreaCode);
                     }
 
                     // 延迟关闭
@@ -246,7 +255,7 @@ public final class AddressDialog {
             }
         }
 
-//        @SingleClick
+        //        @SingleClick
         @Override
         public void onClick(View v) {
             if (v == mCloseView) {
@@ -298,10 +307,12 @@ public final class AddressDialog {
         }
 
         @Override
-        public void onTabUnselected(TabLayout.Tab tab) {}
+        public void onTabUnselected(TabLayout.Tab tab) {
+        }
 
         @Override
-        public void onTabReselected(TabLayout.Tab tab) {}
+        public void onTabReselected(TabLayout.Tab tab) {
+        }
 
         /**
          * {@link BaseDialog.OnShowListener}
@@ -414,14 +425,25 @@ public final class AddressDialog {
 
     private static final class AddressBean {
 
-        /** （省\市\区）的名称 */
+        /**
+         * （省\市\区）的名称
+         */
         private final String name;
-        /** 下一级的 Json */
+
+        private final String code;
+        /**
+         * 下一级的 Json
+         */
         private final JSONObject next;
 
-        private AddressBean(String name, JSONObject next) {
+        private AddressBean(String name, String code, JSONObject next) {
             this.name = name;
+            this.code = code;
             this.next = next;
+        }
+
+        public String getCode() {
+            return code;
         }
 
         private String getName() {
@@ -443,7 +465,9 @@ public final class AddressDialog {
          */
         private static List<AddressBean> getProvinceList(Context context) {
             try {
+//                该地址数据库来源 http://passer-by.com/data_location/list.json ，由统计局最新数据同步
                 // 省市区Json数据文件来源：https://github.com/getActivity/ProvinceJson
+                ///这里的数据来源是前端给的
                 JSONArray jsonArray = getProvinceJson(context);
 
                 if (jsonArray != null) {
@@ -452,7 +476,7 @@ public final class AddressDialog {
                     ArrayList<AddressBean> list = new ArrayList<>(length);
                     for (int i = 0; i < length; i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        list.add(new AddressBean(jsonObject.getString("name"), jsonObject));
+                        list.add(new AddressBean(jsonObject.getString("name"), jsonObject.getString("code"), jsonObject));
                     }
 
                     return list;
@@ -467,17 +491,18 @@ public final class AddressDialog {
         /**
          * 获取城市列表
          *
-         * @param jsonObject        城市Json
+         * @param jsonObject 城市Json
          */
         private static List<AddressBean> getCityList(JSONObject jsonObject) {
             try {
-                JSONArray listCity = jsonObject.getJSONArray("city");
+                JSONArray listCity = jsonObject.getJSONArray("cityList");
                 int length = listCity.length();
 
                 ArrayList<AddressBean> list = new ArrayList<>(length);
 
                 for (int i = 0; i < length; i++) {
-                    list.add(new AddressBean(listCity.getJSONObject(i).getString("name"), listCity.getJSONObject(i)));
+
+                    list.add(new AddressBean(listCity.getJSONObject(i).getString("name"), listCity.getJSONObject(i).getString("code"), listCity.getJSONObject(i)));
                 }
 
                 return list;
@@ -490,18 +515,18 @@ public final class AddressDialog {
         /**
          * 获取区域列表
          *
-         * @param jsonObject        区域 Json
+         * @param jsonObject 区域 Json
          */
         private static List<AddressBean> getAreaList(JSONObject jsonObject) {
             try {
-                JSONArray listArea = jsonObject.getJSONArray("area");
+                JSONArray listArea = jsonObject.getJSONArray("areaList");
                 int length = listArea.length();
 
                 ArrayList<AddressBean> list = new ArrayList<>(length);
 
                 for (int i = 0; i < length; i++) {
-                    String string = listArea.getString(i);
-                    list.add(new AddressBean(string, null));
+
+                    list.add(new AddressBean(listArea.getJSONObject(i).getString("name"), listArea.getJSONObject(i).getString("code"), null));
                 }
                 return list;
             } catch (JSONException e) {
@@ -515,7 +540,7 @@ public final class AddressDialog {
          */
         private static JSONArray getProvinceJson(Context context) {
             try {
-                InputStream inputStream = context.getResources().openRawResource(R.raw.province);
+                InputStream inputStream = context.getResources().openRawResource(R.raw.province2);
                 ByteArrayOutputStream outStream = new ByteArrayOutputStream();
                 byte[] buffer = new byte[512];
                 int length;
@@ -537,15 +562,32 @@ public final class AddressDialog {
         /**
          * 选择完成后回调
          *
-         * @param province          省
-         * @param city              市
-         * @param area              区
+         * @param province 省
+         * @param city     市
+         * @param area     区
          */
-        void onSelected(BaseDialog dialog, String province, String city, String area);
+        default void onSelected(BaseDialog dialog, String province, String city, String area) {
+
+        }
+
+        /**
+         * 选择完成后回调
+         *
+         * @param province     省
+         * @param provinceCode 省code码
+         * @param city         市
+         * @param cityCode     市code码
+         * @param area         区
+         * @param areaCode     区code码
+         */
+        default void onSelectedCode(BaseDialog dialog, String province, String provinceCode, String city, String cityCode, String area, String areaCode) {
+
+        }
 
         /**
          * 点击取消时回调
          */
-        default void onCancel(BaseDialog dialog) {}
+        default void onCancel(BaseDialog dialog) {
+        }
     }
 }
