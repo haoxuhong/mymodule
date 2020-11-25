@@ -279,6 +279,18 @@ public class Utils {
     }
 
     /**
+     * 判断对象为空的方法：
+     *
+     * @param object
+     * @return
+     */
+    public static boolean isEmptyObject(Object object) {
+
+        return object == null || "".equals(object);
+
+    }
+
+    /**
      * 判断列表list为空的方法：
      *
      * @param collection
