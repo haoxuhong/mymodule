@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
@@ -27,6 +28,10 @@ import com.uweic.lib_base.loadsir.ErrorCallback;
 import com.uweic.lib_base.loadsir.LoadingCallback;
 import com.uweic.lib_base.loadsir.TimeoutCallback;
 import com.uweic.lib_base.utils.MyLogManager;
+import com.uweic.lib_dialog.action.ActivityAction;
+import com.uweic.lib_dialog.action.BundleAction;
+import com.uweic.lib_dialog.action.ClickAction;
+import com.uweic.lib_dialog.action.HandlerAction;
 
 import java.io.Serializable;
 
@@ -36,7 +41,8 @@ import java.io.Serializable;
  * @description: Fragment 懒加载基类
  */
 
-public abstract class BaseFragment<A extends BaseActivity, V extends ViewDataBinding> extends Fragment {
+public abstract class BaseFragment<A extends BaseActivity, V extends ViewDataBinding> extends Fragment
+        implements ActivityAction, ClickAction, HandlerAction, BundleAction {
     public String mTag = this.getClass().getSimpleName();
     protected LoadService mBaseLoadService;
 
@@ -63,6 +69,19 @@ public abstract class BaseFragment<A extends BaseActivity, V extends ViewDataBin
     @Override
     public View getView() {
         return mBinding.getRoot();
+    }
+
+    /**
+     * 根据资源 id 获取一个 View 对象
+     */
+    @Override
+    public <V extends View> V findViewById(@IdRes int id) {
+        return getView().findViewById(id);
+    }
+
+    @Override
+    public Bundle getBundle() {
+        return getArguments();
     }
 
     /**
