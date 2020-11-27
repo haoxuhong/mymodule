@@ -39,6 +39,9 @@
     native <methods>;
 }
 
+#所有实体类都不被混淆
+-keep public class **.*bean*.** {*;}
+
 #保持自定义控件类不被混淆
 -keepclassmembers class * extends android.app.Activity {
    public void *(android.view.View);
@@ -81,8 +84,6 @@
 }
 # 避免混淆泛型 如果混淆报错建议关掉
 -keepattributes Signature
-
--keep public abstract class com.uweic.base.BaseActivity { *; }
 
 
 #使用AndroidX的混淆
