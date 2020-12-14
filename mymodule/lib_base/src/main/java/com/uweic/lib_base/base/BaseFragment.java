@@ -130,7 +130,8 @@ public abstract class BaseFragment<A extends BaseActivity, V extends ViewDataBin
                 onCreateFragmentViewId(), container, false);
 
 
-        initLoadSir(mBinding.getRoot(), "");
+        contentView = mBinding.getRoot();
+        initLoadSir(contentView, "");
         if (mBaseLoadService != null) {
             mBaseLoadService.showSuccess();
         }
@@ -312,28 +313,29 @@ public abstract class BaseFragment<A extends BaseActivity, V extends ViewDataBin
     //TODO  如何实现动态修改提示文字
     private void initLoadSir(View content, String title) {
         if (content != null) {
-            if (mBaseLoadService != null) {
-                mBaseLoadService.showSuccess();
-                mBaseLoadService = null;
-            }
-            LoadingCallback.Builder loadingBuilder = new LoadingCallback.Builder();
-            loadingBuilder.setTitle(title);
-            LoadingCallback build = loadingBuilder.build();
-            LoadSir loadSir = new LoadSir.Builder()
-                    .addCallback(build)
-                    .addCallback(new EmptyCallback())
-                    .addCallback(new ErrorCallback())
-                    .addCallback(new TimeoutCallback())
-                    .build();
-            mBaseLoadService = loadSir.register(content, (Callback.OnReloadListener) this::onReload);
+            contentView = content;
         }
+        if (mBaseLoadService != null) {
+            mBaseLoadService.showSuccess();
+            mBaseLoadService = null;
+        }
+        LoadingCallback.Builder loadingBuilder = new LoadingCallback.Builder();
+        loadingBuilder.setTitle(title);
+        LoadingCallback build = loadingBuilder.build();
+        LoadSir loadSir = new LoadSir.Builder()
+                .addCallback(build)
+                .addCallback(new EmptyCallback())
+                .addCallback(new ErrorCallback())
+                .addCallback(new TimeoutCallback())
+                .build();
+        mBaseLoadService = loadSir.register(contentView, (Callback.OnReloadListener) this::onReload);
+
     }
 
     /**
      * 显示加载中
      */
     public void showLoading(View view) {
-        contentView = view;
         initLoadSir(view, this.getString(R.string.common_loading));
         if (mBaseLoadService != null) {
             mBaseLoadService.showCallback(LoadingCallback.class);
@@ -341,7 +343,6 @@ public abstract class BaseFragment<A extends BaseActivity, V extends ViewDataBin
     }
 
     public void showLoading(View view, @StringRes int id) {
-        contentView = view;
         initLoadSir(view, this.getString(id));
         if (mBaseLoadService != null) {
             mBaseLoadService.showCallback(LoadingCallback.class);
@@ -349,7 +350,6 @@ public abstract class BaseFragment<A extends BaseActivity, V extends ViewDataBin
     }
 
     public void showLoading(View view, String hintStr) {
-        contentView = view;
         initLoadSir(view, hintStr);
         if (mBaseLoadService != null) {
             mBaseLoadService.showCallback(LoadingCallback.class);

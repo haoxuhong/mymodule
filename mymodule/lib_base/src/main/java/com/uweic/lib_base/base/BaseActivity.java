@@ -121,23 +121,25 @@ public abstract class BaseActivity<V extends ViewDataBinding> extends AppCompatA
               super.setContentView(mBinding.getRoot());
           }*/
     //TODO  如何实现动态修改提示文字
-    private void initLoadSir(View content, String title) {
-        if (content != null) {
-            if (mBaseLoadService != null) {
-                mBaseLoadService.showSuccess();
-                mBaseLoadService = null;
-            }
-            LoadingCallback.Builder loadingBuilder = new LoadingCallback.Builder();
-            loadingBuilder.setTitle(title);
-            LoadingCallback build = loadingBuilder.build();
-            LoadSir loadSir = new LoadSir.Builder()
-                    .addCallback(build)
-                    .addCallback(new EmptyCallback())
-                    .addCallback(new ErrorCallback())
-                    .addCallback(new TimeoutCallback())
-                    .build();
-            mBaseLoadService = loadSir.register(content, (Callback.OnReloadListener) this::onReload);
+    private void initLoadSir(View contentView, String title) {
+        if (contentView != null) {
+            content = contentView;
         }
+        if (mBaseLoadService != null) {
+            mBaseLoadService.showSuccess();
+            mBaseLoadService = null;
+        }
+        LoadingCallback.Builder loadingBuilder = new LoadingCallback.Builder();
+        loadingBuilder.setTitle(title);
+        LoadingCallback build = loadingBuilder.build();
+        LoadSir loadSir = new LoadSir.Builder()
+                .addCallback(build)
+                .addCallback(new EmptyCallback())
+                .addCallback(new ErrorCallback())
+                .addCallback(new TimeoutCallback())
+                .build();
+        mBaseLoadService = loadSir.register(content, (Callback.OnReloadListener) this::onReload);
+
     }
 
 
@@ -205,24 +207,21 @@ public abstract class BaseActivity<V extends ViewDataBinding> extends AppCompatA
      * 显示加载中
      */
     public void showLoading(View view) {
-        content = view;
-        initLoadSir(content, this.getString(R.string.common_loading));
+        initLoadSir(view, this.getString(R.string.common_loading));
         if (mBaseLoadService != null) {
             mBaseLoadService.showCallback(LoadingCallback.class);
         }
     }
 
     public void showLoading(View view, @StringRes int id) {
-        content = view;
-        initLoadSir(content, this.getString(id));
+        initLoadSir(view, this.getString(id));
         if (mBaseLoadService != null) {
             mBaseLoadService.showCallback(LoadingCallback.class);
         }
     }
 
     public void showLoading(View view, String hintStr) {
-        content = view;
-        initLoadSir(content, hintStr);
+        initLoadSir(view, hintStr);
         if (mBaseLoadService != null) {
             mBaseLoadService.showCallback(LoadingCallback.class);
         }
